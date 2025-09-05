@@ -2,62 +2,186 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AuraCare — AI per la sanità digitale</title>
-  <meta name="description" content="AuraCare sviluppa assistenti AI per sanità digitale in conformità GDPR. Valutiamo AMD Instinct MI350 per LLM/NLP a bassa latenza e alti volumi.">
-  <meta property="og:title" content="AuraCare — AI per la sanità digitale">
-  <meta property="og:description" content="Assistenti AI per sanità digitale (GDPR). PoC su AMD Instinct MI350: LLM/NLP, latenza bassa, contesti lunghi.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AuraCare — Valutazione AMD Instinct MI350</title>
+  <meta name="description" content="AuraCare: assistenti AI per sanità digitale (GDPR-first). Richiesta di valutazione AMD Instinct MI350 per carichi LLM/NLP a bassa latenza, contesti lunghi e deployment ibrido (on‑prem + cloud)." />
+  <meta name="theme-color" content="#101423" />
+  <meta property="og:title" content="AuraCare — Valutazione AMD Instinct MI350" />
+  <meta property="og:description" content="Assistenti AI per sanità digitale (GDPR-first). PoC su MI350: LLM/NLP con streaming, contesti ≥32k, scalabilità multi‑GPU e affidabilità 24/7." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://auracareai.github.io/AuraCare-Temporary-Website/" />
+  <meta property="og:image" content="https://auracareai.github.io/AuraCare-Temporary-Website/og-image.png" />
+  <link rel="icon" href="favicon.ico" />
   <style>
-    :root { --bg:#0f1226; --fg:#e7e9f3; --muted:#a7adcf; --accent: #7aa2ff; }
-    *{box-sizing:border-box} body{margin:0;background:radial-gradient(80vw 80vh at 70% 20%,#1a1f3a 0%,#0f1226 60%);}
-    body{font:16px/1.6 system-ui,Segoe UI,Inter,Arial;color:var(--fg);display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
-    .card{max-width:880px;width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 28px 22px;backdrop-filter: blur(6px); box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    h1{margin:0 0 6px;font-size:28px}
-    .tag{display:inline-block;margin:.3rem .4rem 1rem 0;padding:.18rem .55rem;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:var(--muted);font-size:12px}
-    p{margin:.5rem 0;color:#cfd3ea}
-    .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:14px 0 6px}
-    .pill{padding:10px 12px;border:1px solid rgba(255,255,255,.10);border-radius:12px;color:#d7dbff;background:rgba(255,255,255,.03)}
-    .footer{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center;justify-content:space-between;color:var(--muted)}
-    a.btn{display:inline-block;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#9ab6ff);color:#0b0f24;text-decoration:none;font-weight:600}
-    a.link{color:#b4beff;text-decoration:none;border-bottom:1px dotted #b4beff}
-    small{color:var(--muted)}
+    :root{
+      --bg:#0d1022; --bg2:#121736; --fg:#e9ebff; --muted:#abb1d7; --line:rgba(255,255,255,.10);
+      --accent:#7aa2ff; --accent2:#b79cff; --card:rgba(255,255,255,.045);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font:16px/1.6 system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;color:var(--fg);
+         background: radial-gradient(100vw 80vh at 70% 10%, #1a2251 0%, var(--bg) 60%),
+                     linear-gradient(180deg, var(--bg2), #0a0d1d 70%); overflow-x:hidden}
+    /* Subtle animated orbs */
+    .orbs::before, .orbs::after{content:"";position:fixed;inset:auto;z-index:-1;border-radius:50%;filter:blur(60px);opacity:.35;}
+    .orbs::before{width:40vmax;height:40vmax;left:-10vmax;top:-10vmax;background:conic-gradient(from 0deg, #2b7bff, #8a7bff, #2b7bff);animation:spin 22s linear infinite;} 
+    .orbs::after{width:45vmax;height:45vmax;right:-15vmax;bottom:-15vmax;background:conic-gradient(from 120deg, #7aa2ff, #6ff0ff, #7aa2ff);animation:spin 34s linear infinite reverse;} 
+    @keyframes spin{to{transform:rotate(1turn)}}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:6px 0 8px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+    .logo svg{width:28px;height:28px}
+    .logo span{font-weight:700;letter-spacing:.2px}
+    nav a{color:#cdd2ff;text-decoration:none;margin-left:16px;border-bottom:1px dashed transparent}
+    nav a:hover{border-bottom-color:#cdd2ff}
+
+    .hero{margin:34px 0 18px;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--card);backdrop-filter:blur(6px)}
+    .eyebrow{display:inline-block;font-size:12px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:999px;margin-bottom:10px}
+    h1{margin:4px 0 6px;font-size:34px;line-height:1.15}
+    .sub{color:#d6d9ff;max-width:70ch}
+    .cta{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#0b0f24;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none}
+    .ghost{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);text-decoration:none;color:#cfd3ff}
+
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:18px 0}
+    .card{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px}
+    .card h3{margin:4px 0 6px;font-size:18px}
+    .meta{color:var(--muted);font-size:13px}
+
+    .kpis{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:6px}
+    .kpi{border:1px dashed var(--line);border-radius:14px;padding:10px 12px}
+    .kpi b{display:block;font-size:18px}
+
+    footer{margin:28px 0 10px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .tiny{font-size:12px;color:var(--muted)}
+    .sep{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:22px 0}
+
+    @media (max-width:600px){h1{font-size:28px}.wrap{padding:18px}.hero{padding:18px}}
   </style>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"AuraCare",
-    "url":"https://example.com",
-    "email":"auracareai@gmail.com",
-    "address":{"@type":"PostalAddress","addressLocality":"Cesena","addressCountry":"IT"},
-    "sameAs":[]
-  }
-  </script>
 </head>
-<body>
-  <main class="card">
-    <h1>AuraCare</h1>
-    <div class="tag">Sanità digitale • EU-GDPR</div>
-    <p>Assistenti AI per coaching e prevenzione (non diagnostico), con residenza dati UE e infrastruttura ibrida. Stiamo valutando <b>AMD Instinct MI350</b> per carichi LLM/NLP a bassa latenza e contesti lunghi.</p>
+<body class="orbs">
+  <div class="wrap">
+    <header>
+      <a class="logo" href="#">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="28" stroke="url(#g)" stroke-width="3"/>
+          <defs><linearGradient id="g" x1="0" y1="0" x2="64" y2="64">
+            <stop stop-color="#7aa2ff"/><stop offset="1" stop-color="#b79cff"/>
+          </linearGradient></defs>
+          <path d="M18 34c6 6 10 8 14 8s8-2 14-8" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span>AuraCare</span>
+      </a>
+      <nav>
+        <a href="#goals">Obiettivi</a>
+        <a href="#metrics">Success metrics</a>
+        <a href="#stack">Stack</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+    </header>
 
-    <div class="grid">
-      <div class="pill">LLM/NLP con streaming</div>
-      <div class="pill">SFT/LoRA domini sanitari</div>
-      <div class="pill">ROCm • vLLM/TGI • PyTorch</div>
-      <div class="pill">Scalabilità multi-GPU/K8s</div>
-      <div class="pill">Observability & uptime 24/7</div>
-      <div class="pill">Compliance GDPR (EU)</div>
-    </div>
-
-    <div class="footer">
-      <div>
+    <section class="hero" id="top">
+      <div class="eyebrow">Sanità digitale • EU‑GDPR</div>
+      <h1>Assistenti AI per la cura, con residenza dati UE.<br/>Richiesta di valutazione <b>AMD Instinct MI350</b>.</h1>
+      <p class="sub">Progettiamo agenti conversazionali e strumenti di analisi <em>non diagnostici</em> per coaching/prevenzione. Vogliamo validare MI350 su carichi LLM/NLP a bassa latenza e contesti lunghi, in ambiente ibrido (on‑prem per dati sensibili, cloud per burst).</p>
+      <div class="cta">
         <a class="btn" href="mailto:auracareai@gmail.com">Contatti</a>
-        &nbsp;&nbsp;<a class="link" href="#" onclick="return false;">Whitepaper (in arrivo)</a>
+        <a class="ghost" href="#goals">Vedi obiettivi della trial</a>
       </div>
-      <small>Cesena (IT) • © AuraCare</small>
-    </div>
-  </main>
+    </section>
+
+    <section id="about">
+      <div class="grid">
+        <div class="card">
+          <h3>Chi siamo</h3>
+          <p>AuraCare è una startup italiana focalizzata su sanità digitale e AI <strong>privacy‑first</strong>. Sviluppiamo assistenti e strumenti per percorsi di benessere e prevenzione, con residenza dati in UE e controlli di sicurezza enterprise.</p>
+          <p class="meta">Sede: Cesena (IT) • Modello operativo: ibrido (on‑prem + cloud)</p>
+        </div>
+        <div class="card">
+          <h3>Perché MI350</h3>
+          <p>Memoria HBM ampia per modelli 70B/contesti ≥32k senza sharding aggressivo, performance per watt competitive e stack ROCm in crescita (PyTorch/Triton/vLLM). Target: throughput elevato e costi prevedibili.</p>
+        </div>
+        <div class="card">
+          <h3>Ambito d’uso</h3>
+          <p>LLM/NLP con streaming, SFT/LoRA su dati non sensibili, analisi documentale, tool‑use controllato, e integrazioni multimodali per triage informativo (no diagnosi).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="goals">
+      <h2>Obiettivi della trial</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Validazione tecnica</h3>
+          <ul>
+            <li>Porting rapido CUDA → ROCm (PyTorch/Triton), compatibilità vLLM/TGI.</li>
+            <li>Inference a bassa latenza con contesto ≥32k e streaming.</li>
+            <li>Scalabilità multi‑GPU intra‑nodo e multi‑nodo (K8s, container ROCm).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Affidabilità & Operatività</h3>
+          <ul>
+            <li>Stabilità 24/7, osservabilità (profiling/metrics/logging) pronta.</li>
+            <li>Energia/TCO e densità per RU sotto carichi reali.</li>
+            <li>Conformità GDPR: cifratura in transito/at‑rest, residenza dati UE.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Ambito temporale</h3>
+          <p>Finestra di test 30–45 giorni, preferenza <strong>EU region</strong>, immagini ROCm ufficiali. Disponibilità a condividere un breve report e lesson learned (no dati sensibili, no info coperte da NDA).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="metrics">
+      <h2>Success metrics (compatte)</h2>
+      <div class="kpis">
+        <div class="kpi"><b>Inference</b> tok/s per GPU su Llama‑3.1‑70B (4–8 bit) batch 1/8/32; p95 ≤ 150 ms; throughput per watt/€ vs baseline A100/H100.</div>
+        <div class="kpi"><b>Training</b> SFT 7B LoRA BF16: efficienza ≥80% da 1→8 GPU; tempo‑per‑epoca su seq 8k–32k.</div>
+        <div class="kpi"><b>Affidabilità</b> Uptime ≥99,9% su 14 giorni; zero crash driver; recovery automatico.</div>
+        <div class="kpi"><b>Operatività</b> Porting ≤2 settimane; vLLM/TGI <em>out‑of‑the‑box</em>; osservabilità pronta.</div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <h2>Stack & compatibilità</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Framework</h3>
+          <p>PyTorch • OpenAI Triton • JAX (sperimentale) • Hugging Face Transformers • vLLM/TGI • ONNX Runtime.</p>
+        </div>
+        <div class="card">
+          <h3>Modelli target</h3>
+          <p>Llama 3.1 (8B/70B) baseline; valutazione Qwen2.5, DeepSeek‑R1‑distill per reasoning/tool‑use. Contesti ≥32k.</p>
+        </div>
+        <div class="card">
+          <h3>Deployment</h3>
+          <p>Ibrido: on‑prem per dati sensibili, cloud per burst. Container ROCm, orchestrazione Kubernetes, metriche Prometheus/Grafana.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <section id="privacy">
+      <h2>Privacy & note</h2>
+      <p>Questo sito non raccoglie cookie né dati personali. I contatti avvengono via email <a href="mailto:auracareai@gmail.com">auracareai@gmail.com</a>. Le informazioni progettuali coperte da NDA non sono esposte; i test useranno dati sintetici o anonimi, con residenza UE.</p>
+    </section>
+
+    <footer>
+      <div class="tiny">© AuraCare — Cesena (IT) • EU‑GDPR • info: <a href="mailto:auracareai@gmail.com">auracareai@gmail.com</a></div>
+      <div class="tiny">Pagina di cortesia per valutazione AMD Instinct MI350</div>
+    </footer>
+  </div>
+
+  <script>
+    // Micro‑polish: smooth scroll, nothing exotic to keep Pages happy
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{ const id=a.getAttribute('href').slice(1); const el=document.getElementById(id); if(el){e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'});} });
+    });
+  </script>
 </body>
 </html>
+
