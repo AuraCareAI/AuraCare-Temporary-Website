@@ -1,187 +1,245 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AuraCare — Valutazione AMD Instinct MI350</title>
-  <meta name="description" content="AuraCare: assistenti AI per sanità digitale (GDPR-first). Richiesta di valutazione AMD Instinct MI350 per carichi LLM/NLP a bassa latenza, contesti lunghi e deployment ibrido (on‑prem + cloud)." />
-  <meta name="theme-color" content="#101423" />
-  <meta property="og:title" content="AuraCare — Valutazione AMD Instinct MI350" />
-  <meta property="og:description" content="Assistenti AI per sanità digitale (GDPR-first). PoC su MI350: LLM/NLP con streaming, contesti ≥32k, scalabilità multi‑GPU e affidabilità 24/7." />
+  <title>AuraCare – Prossimamente…</title>
+  <meta name="description" content="AuraCare – piattaforma per benessere corpo e mente con AI AURA. Homepage temporanea. Prossimamente." />
+  <meta property="og:title" content="AuraCare – Prossimamente…" />
+  <meta property="og:description" content="Benessere corpo‑mente, professionisti selezionati e AI AURA. 2025: torna centrale prendersi cura di sé. Prossimamente." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://auracareai.github.io/AuraCare-Temporary-Website/" />
-  <meta property="og:image" content="https://auracareai.github.io/AuraCare-Temporary-Website/og-image.png" />
-  <link rel="icon" href="favicon.ico" />
+  <meta property="og:locale" content="it_IT" />
+  <meta name="theme-color" content="#2596be" />
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#0d1022; --bg2:#121736; --fg:#e9ebff; --muted:#abb1d7; --line:rgba(255,255,255,.10);
-      --accent:#7aa2ff; --accent2:#b79cff; --card:rgba(255,255,255,.045);
+      --primary:#2596be; /* dominante richiesta */
+      --indigo:#5753f0;  /* indaco soft */
+      --text:#0f172a;    /* slate-900 */
     }
-    *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font:16px/1.6 system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;color:var(--fg);
-         background: radial-gradient(100vw 80vh at 70% 10%, #1a2251 0%, var(--bg) 60%),
-                     linear-gradient(180deg, var(--bg2), #0a0d1d 70%); overflow-x:hidden}
-    /* Subtle animated orbs */
-    .orbs::before, .orbs::after{content:"";position:fixed;inset:auto;z-index:-1;border-radius:50%;filter:blur(60px);opacity:.35;}
-    .orbs::before{width:40vmax;height:40vmax;left:-10vmax;top:-10vmax;background:conic-gradient(from 0deg, #2b7bff, #8a7bff, #2b7bff);animation:spin 22s linear infinite;} 
-    .orbs::after{width:45vmax;height:45vmax;right:-15vmax;bottom:-15vmax;background:conic-gradient(from 120deg, #7aa2ff, #6ff0ff, #7aa2ff);animation:spin 34s linear infinite reverse;} 
-    @keyframes spin{to{transform:rotate(1turn)}}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans'; background:#fff; color:var(--text); overflow-x:hidden}
 
-    .wrap{max-width:1100px;margin:0 auto;padding:28px}
-    header{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:6px 0 8px}
-    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
-    .logo svg{width:28px;height:28px}
-    .logo span{font-weight:700;letter-spacing:.2px}
-    nav a{color:#cdd2ff;text-decoration:none;margin-left:16px;border-bottom:1px dashed transparent}
-    nav a:hover{border-bottom-color:#cdd2ff}
+    /* Particelle su sfondo bianco */
+    #bg-canvas{position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(600px 400px at 80% 10%, rgba(37,150,190,.06), transparent 60%),radial-gradient(800px 500px at 15% 85%, rgba(87,83,240,.05), transparent 60%), #fff}
 
-    .hero{margin:34px 0 18px;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--card);backdrop-filter:blur(6px)}
-    .eyebrow{display:inline-block;font-size:12px;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:999px;margin-bottom:10px}
-    h1{margin:4px 0 6px;font-size:34px;line-height:1.15}
-    .sub{color:#d6d9ff;max-width:70ch}
-    .cta{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
-    .btn{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#0b0f24;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none}
-    .ghost{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);text-decoration:none;color:#cfd3ff}
+    /* AURA rainbow wave */
+    .aura-rgb{font-weight:900; letter-spacing:.06em; background:linear-gradient(90deg,#ff004c,#ff7a00,#ffe600,#00ff85,#00e5ff,#7a5cff,#ff00f5,#ff004c); background-size:400% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:rgbwave 6.5s linear infinite}
+    @keyframes rgbwave{0%{background-position:0% 50%}100%{background-position:400% 50%}}
 
-    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:18px 0}
-    .card{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px}
-    .card h3{margin:4px 0 6px;font-size:18px}
-    .meta{color:var(--muted);font-size:13px}
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1; transform:none}
 
-    .kpis{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:6px}
-    .kpi{border:1px dashed var(--line);border-radius:14px;padding:10px 12px}
-    .kpi b{display:block;font-size:18px}
+    /* Chat glass on white */
+    .glass{background:rgba(255,255,255,.75); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(15,23,42,.08)}
+    .pulse-ring::after{content:""; position:absolute; inset:0; border-radius:999px; border:2px solid rgba(37,150,190,.35); animation:ring 1.8s ease-out infinite}
+    @keyframes ring{0%{transform:scale(.9); opacity:.9}100%{transform:scale(1.4); opacity:0}}
 
-    footer{margin:28px 0 10px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-    .tiny{font-size:12px;color:var(--muted)}
-    .sep{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:22px 0}
-
-    @media (max-width:600px){h1{font-size:28px}.wrap{padding:18px}.hero{padding:18px}}
+    /* Utilities */
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
   </style>
 </head>
-<body class="orbs">
-  <div class="wrap">
-    <header>
-      <a class="logo" href="#">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="28" stroke="url(#g)" stroke-width="3"/>
-          <defs><linearGradient id="g" x1="0" y1="0" x2="64" y2="64">
-            <stop stop-color="#7aa2ff"/><stop offset="1" stop-color="#b79cff"/>
-          </linearGradient></defs>
-          <path d="M18 34c6 6 10 8 14 8s8-2 14-8" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-        <span>AuraCare</span>
-      </a>
-      <nav>
-        <a href="#goals">Obiettivi</a>
-        <a href="#metrics">Success metrics</a>
-        <a href="#stack">Stack</a>
-        <a href="#privacy">Privacy</a>
-      </nav>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Wrapper verticale -->
+  <div class="relative z-10 min-h-screen flex flex-col">
+    <!-- Header minimale -->
+    <header class="w-full border-b border-black/5 bg-white/70 backdrop-blur">
+      <div class="mx-auto max-w-3xl px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-8 w-8 rounded-xl" style="background:linear-gradient(135deg,var(--primary),var(--indigo))"></div>
+          <span class="font-extrabold tracking-wide">AuraCare</span>
+        </div>
+        <nav class="hidden sm:flex items-center gap-4 text-sm text-slate-600">
+          <span class="opacity-60">Home</span>
+          <a class="underline underline-offset-4 decoration-[var(--primary)]/40 hover:decoration-[var(--primary)]" href="mailto:auracareai@gmail.com">Contatti</a>
+        </nav>
+      </div>
     </header>
 
-    <section class="hero" id="top">
-      <div class="eyebrow">Sanità digitale • EU‑GDPR</div>
-      <h1>Assistenti AI per la cura, con residenza dati UE.<br/>Richiesta di valutazione <b>AMD Instinct MI350</b>.</h1>
-      <p class="sub">Progettiamo agenti conversazionali e strumenti di analisi <em>non diagnostici</em> per coaching/prevenzione. Vogliamo validare MI350 su carichi LLM/NLP a bassa latenza e contesti lunghi, in ambiente ibrido (on‑prem per dati sensibili, cloud per burst).</p>
-      <div class="cta">
-        <a class="btn" href="mailto:auracareai@gmail.com">Contatti</a>
-        <a class="ghost" href="#goals">Vedi obiettivi della trial</a>
-      </div>
-    </section>
+    <!-- HERO: verticale, centrato -->
+    <main class="flex-1">
+      <section class="mx-auto max-w-3xl px-5 pt-12 pb-16 sm:pt-16">
+        <p class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs" style="background:rgba(37,150,190,.12); color:var(--primary)">
+          <span class="h-1.5 w-1.5 rounded-full" style="background:var(--primary)"></span> PROSSIMAMENTE · 2025
+        </p>
+        <h1 class="mt-5 text-4xl sm:text-5xl leading-tight font-extrabold text-center">
+          Corpo e mente, finalmente insieme con <span class="aura-rgb">AURA CARE</span>
+        </h1>
+        <p class="mt-5 text-slate-700 text-lg text-center">
+          Il 2025 ha rimesso al centro l'essenziale: salute fisica, lucidità mentale, relazioni sane. Noi uniamo professionisti e tecnologia in un'unica esperienza chiara, rispettosa e umana. Sistema meritocratico, senza promesse vuote.
+        </p>
+        <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="mailto:auracareai@gmail.com" class="px-5 py-3 rounded-xl text-white font-semibold" style="background:linear-gradient(135deg,var(--primary),var(--indigo))">Scrivici</a>
+          <span class="px-5 py-3 rounded-xl border border-black/10 text-slate-600">P.IVA <span class="font-mono">05434380753</span></span>
+        </div>
+      </section>
 
-    <section id="about">
-      <div class="grid">
-        <div class="card">
-          <h3>Chi siamo</h3>
-          <p>AuraCare è una startup italiana focalizzata su sanità digitale e AI <strong>privacy‑first</strong>. Sviluppiamo assistenti e strumenti per percorsi di benessere e prevenzione, con residenza dati in UE e controlli di sicurezza enterprise.</p>
-          <p class="meta">Sede: Cesena (IT) • Modello operativo: ibrido (on‑prem + cloud)</p>
-        </div>
-        <div class="card">
-          <h3>Perché MI350</h3>
-          <p>Memoria HBM ampia per modelli 70B/contesti ≥32k senza sharding aggressivo, performance per watt competitive e stack ROCm in crescita (PyTorch/Triton/vLLM). Target: throughput elevato e costi prevedibili.</p>
-        </div>
-        <div class="card">
-          <h3>Ambito d’uso</h3>
-          <p>LLM/NLP con streaming, SFT/LoRA su dati non sensibili, analisi documentale, tool‑use controllato, e integrazioni multimodali per triage informativo (no diagnosi).</p>
-        </div>
-      </div>
-    </section>
+      <!-- Sezione: per le persone -->
+      <section class="mx-auto max-w-3xl px-5 py-12 border-t border-black/5 reveal">
+        <h2 class="text-2xl font-bold">Per le persone</h2>
+        <p class="mt-3 text-slate-700">
+          Percorsi semplici, linguaggio chiaro. L'obiettivo è stare bene davvero: energia nel corpo, calma nella mente, abitudini che durano. AURA ti accompagna con suggerimenti sobri e utili, non invadenti.
+        </p>
+        <ul class="mt-5 space-y-2 text-slate-700">
+          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full" style="background:var(--primary)"></span> Focus su consapevolezza, sonno, alimentazione e movimento.</li>
+          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full" style="background:var(--primary)"></span> Appuntamenti e promemoria senza stress, quando servono davvero.</li>
+          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full" style="background:var(--primary)"></span> Dati trattati con serietà e sobrietà. Punto.</li>
+        </ul>
+      </section>
 
-    <section id="goals">
-      <h2>Obiettivi della trial</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Validazione tecnica</h3>
-          <ul>
-            <li>Porting rapido CUDA → ROCm (PyTorch/Triton), compatibilità vLLM/TGI.</li>
-            <li>Inference a bassa latenza con contesto ≥32k e streaming.</li>
-            <li>Scalabilità multi‑GPU intra‑nodo e multi‑nodo (K8s, container ROCm).</li>
-          </ul>
+      <!-- Sezione: per i professionisti -->
+      <section class="mx-auto max-w-3xl px-5 py-12 border-t border-black/5 reveal">
+        <h2 class="text-2xl font-bold">Per i professionisti</h2>
+        <p class="mt-3 text-slate-700">
+          Cerchiamo persone serie: nutrizionisti, fisioterapisti, psicologi, personal trainer. Lavoro pulito, strumenti moderni, tempo rispettato. Nessun dettaglio operativo pubblicato qui: parliamone a voce.
+        </p>
+        <div class="mt-5">
+          <a href="mailto:auracareai@gmail.com?subject=Candidatura%20professionista%20AuraCare" class="inline-flex px-4 py-2 rounded-lg border border-black/10 hover:border-black/20" style="color:var(--primary)">Candidati / Collabora</a>
         </div>
-        <div class="card">
-          <h3>Affidabilità & Operatività</h3>
-          <ul>
-            <li>Stabilità 24/7, osservabilità (profiling/metrics/logging) pronta.</li>
-            <li>Energia/TCO e densità per RU sotto carichi reali.</li>
-            <li>Conformità GDPR: cifratura in transito/at‑rest, residenza dati UE.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Ambito temporale</h3>
-          <p>Finestra di test 30–45 giorni, preferenza <strong>EU region</strong>, immagini ROCm ufficiali. Disponibilità a condividere un breve report e lesson learned (no dati sensibili, no info coperte da NDA).</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="metrics">
-      <h2>Success metrics (compatte)</h2>
-      <div class="kpis">
-        <div class="kpi"><b>Inference</b> tok/s per GPU su Llama‑3.1‑70B (4–8 bit) batch 1/8/32; p95 ≤ 150 ms; throughput per watt/€ vs baseline A100/H100.</div>
-        <div class="kpi"><b>Training</b> SFT 7B LoRA BF16: efficienza ≥80% da 1→8 GPU; tempo‑per‑epoca su seq 8k–32k.</div>
-        <div class="kpi"><b>Affidabilità</b> Uptime ≥99,9% su 14 giorni; zero crash driver; recovery automatico.</div>
-        <div class="kpi"><b>Operatività</b> Porting ≤2 settimane; vLLM/TGI <em>out‑of‑the‑box</em>; osservabilità pronta.</div>
-      </div>
-    </section>
+      <!-- Sezione: valori -->
+      <section class="mx-auto max-w-3xl px-5 py-12 border-t border-black/5 reveal">
+        <h2 class="text-2xl font-bold">I nostri valori</h2>
+        <div class="mt-4 grid grid-cols-1 gap-4">
+          <div class="p-5 rounded-2xl glass">
+            <h3 class="font-semibold" style="color:var(--indigo)">Professionalità</h3>
+            <p class="mt-1 text-slate-700">Risposte oneste, processi chiari, standard elevati. La cura è un lavoro serio.</p>
+          </div>
+          <div class="p-5 rounded-2xl glass">
+            <h3 class="font-semibold" style="color:var(--primary)">Scienza e umanità</h3>
+            <p class="mt-1 text-slate-700">Metodi basati su evidenze e ascolto reale. Tecnologia che non sostituisce, ma supporta.</p>
+          </div>
+          <div class="p-5 rounded-2xl glass">
+            <h3 class="font-semibold" style="color:var(--indigo)">Sobrietà</h3>
+            <p class="mt-1 text-slate-700">Niente hype, niente pressioni: solo strumenti utili e tempo ben speso.</p>
+          </div>
+        </div>
+      </section>
 
-    <section id="stack">
-      <h2>Stack & compatibilità</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Framework</h3>
-          <p>PyTorch • OpenAI Triton • JAX (sperimentale) • Hugging Face Transformers • vLLM/TGI • ONNX Runtime.</p>
-        </div>
-        <div class="card">
-          <h3>Modelli target</h3>
-          <p>Llama 3.1 (8B/70B) baseline; valutazione Qwen2.5, DeepSeek‑R1‑distill per reasoning/tool‑use. Contesti ≥32k.</p>
-        </div>
-        <div class="card">
-          <h3>Deployment</h3>
-          <p>Ibrido: on‑prem per dati sensibili, cloud per burst. Container ROCm, orchestrazione Kubernetes, metriche Prometheus/Grafana.</p>
+      <!-- Nota finale -->
+      <section class="mx-auto max-w-3xl px-5 py-12 border-t border-black/5 reveal">
+        <p class="text-slate-600 text-sm">Homepage temporanea.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto">
+      <div class="mx-auto max-w-3xl px-5 py-8 border-t border-black/5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-sm text-slate-600">
+        <div>© 2025 AuraCare AI · P.IVA <span class="font-mono">05434380753</span></div>
+        <div class="flex items-center gap-4">
+          <a class="underline underline-offset-4 decoration-[var(--primary)]/40 hover:decoration-[var(--primary)]" href="mailto:auracareai@gmail.com">auracareai@gmail.com</a>
+          <span aria-hidden="true">·</span>
+          <span>Made in Italy</span>
         </div>
       </div>
-    </section>
-
-    <div class="sep"></div>
-
-    <section id="privacy">
-      <h2>Privacy & note</h2>
-      <p>Questo sito non raccoglie cookie né dati personali. I contatti avvengono via email <a href="mailto:auracareai@gmail.com">auracareai@gmail.com</a>. Le informazioni progettuali coperte da NDA non sono esposte; i test useranno dati sintetici o anonimi, con residenza UE.</p>
-    </section>
-
-    <footer>
-      <div class="tiny">© AuraCare — Cesena (IT) • EU‑GDPR • info: <a href="mailto:auracareai@gmail.com">auracareai@gmail.com</a></div>
-      <div class="tiny">Pagina di cortesia per valutazione AMD Instinct MI350</div>
     </footer>
   </div>
 
+  <!-- Chat: launcher + panel (WIP, input disabilitato) -->
+  <button id="chat-launcher" aria-label="Apri chat AURA" class="fixed z-20 bottom-5 right-5 sm:bottom-6 sm:right-6 w-16 h-16 rounded-full glass pulse-ring shadow-2xl flex items-center justify-center group">
+    <span class="aura-rgb text-base">AURA</span>
+    <span class="absolute -top-1 -right-1 text-[10px] px-1.5 py-0.5 rounded-full" style="background:var(--primary); color:white; font-weight:800">WIP</span>
+  </button>
+
+  <div id="chat-panel" class="hidden fixed z-30 bottom-24 right-5 sm:right-6 w-[92vw] max-w-sm glass rounded-2xl shadow-2xl overflow-hidden">
+    <div class="px-4 py-3 border-b border-black/5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-7 w-7 rounded-lg" style="background:linear-gradient(135deg,var(--primary),var(--indigo))"></div>
+        <div>
+          <p class="text-sm font-semibold">AURA</p>
+          <p class="text-[11px] text-slate-600 -mt-0.5">AI Assistant · WIP </p>
+        </div>
+      </div>
+      <button id="chat-close" class="text-slate-500 hover:text-slate-700" aria-label="Chiudi">✕</button>
+    </div>
+    <div id="chat-body" class="no-scrollbar max-h-80 overflow-y-auto p-4 space-y-3">
+      <div class="flex gap-3">
+        <div class="h-8 w-8 rounded-lg" style="background:linear-gradient(135deg,var(--primary),var(--indigo))"></div>
+        <div class="bg-white border border-black/5 rounded-2xl px-4 py-2 text-sm text-slate-800">Ciao! La chat apparirà qui. Per ora è in sola lettura.</div>
+      </div>
+      <div class="flex gap-3 justify-end">
+        <div class="bg-[rgba(37,150,190,.08)] border border-[rgba(15,23,42,.08)] rounded-2xl px-4 py-2 text-sm text-slate-800">Benessere concreto, senza bugie.</div>
+        <div class="h-8 w-8 rounded-lg" style="background:linear-gradient(135deg,var(--indigo),var(--primary))"></div>
+      </div>
+    </div>
+    <div class="p-3 border-t border-black/5">
+      <div class="flex items-center gap-2">
+        <input disabled class="flex-1 px-3 py-2 rounded-xl bg-white border border-black/10 text-slate-500 placeholder:text-slate-400" placeholder="Chat disabilitata (WIP)" />
+        <button disabled class="px-3 py-2 rounded-xl border border-black/10 text-slate-500 cursor-not-allowed">Invia</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    // Micro‑polish: smooth scroll, nothing exotic to keep Pages happy
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{ const id=a.getAttribute('href').slice(1); const el=document.getElementById(id); if(el){e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'});} });
-    });
+  // Particelle: puntini e linee in tinta primaria
+  (function(){
+    const c = document.getElementById('bg-canvas');
+    const ctx = c.getContext('2d');
+    const PR = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#2596be';
+    let dpr = Math.max(1, window.devicePixelRatio || 1);
+    let w, h, particles, mouse;
+
+    function resize(){
+      w = c.clientWidth = window.innerWidth;
+      h = c.clientHeight = window.innerHeight;
+      c.width = Math.floor(w * dpr); c.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      init();
+    }
+    function rand(min,max){return Math.random()*(max-min)+min}
+    function init(){
+      const count = Math.min(140, Math.round((w*h)/16000));
+      particles = Array.from({length:count},()=>({x:rand(0,w),y:rand(0,h),vx:rand(-.35,.35),vy:rand(-.35,.35),r:rand(.7,2)}));
+      mouse = {x:-9999,y:-9999};
+    }
+    function step(){
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<particles.length;i++){
+        const p = particles[i];
+        p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>w)p.vx*=-1; if(p.y<0||p.y>h)p.vy*=-1;
+        // draw point
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle = PR+'AA'; ctx.fill();
+        // neighbor lines
+        for(let j=i+1;j<particles.length;j++){
+          const q=particles[j]; const dx=p.x-q.x, dy=p.y-q.y; const d2=dx*dx+dy*dy;
+          if(d2<170*170){ const a=1-(Math.sqrt(d2)/170); ctx.strokeStyle=PR+Math.round(a*60).toString(16).padStart(2,'0'); ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke(); }
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e)=>{ mouse={x:e.clientX,y:e.clientY} });
+    window.addEventListener('mouseleave', ()=>{ mouse={x:-9999,y:-9999} });
+    resize(); step();
+  })();
+
+  // Reveal on scroll
+  (function(){
+    const els=[...document.querySelectorAll('.reveal')];
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+    },{threshold:.18});
+    els.forEach(el=>io.observe(el));
+  })();
+
+  // Chat open/close
+  (function(){
+    const openBtn=document.getElementById('chat-launcher');
+    const panel=document.getElementById('chat-panel');
+    const closeBtn=document.getElementById('chat-close');
+    openBtn.addEventListener('click',()=>panel.classList.toggle('hidden'));
+    closeBtn.addEventListener('click',()=>panel.classList.add('hidden'));
+  })();
   </script>
 </body>
 </html>
-
